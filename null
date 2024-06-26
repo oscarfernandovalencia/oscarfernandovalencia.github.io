@@ -1,0 +1,25 @@
+[1592:1592:0622/180326.638841:ERROR:file_path_watcher_inotify.cc(890)] Failed to read /proc/sys/fs/inotify/max_user_watches
+[1593:1593:0622/180326.638841:ERROR:file_path_watcher_inotify.cc(890)] Failed to read /proc/sys/fs/inotify/max_user_watches
+[1527:1599:0622/180326.979886:ERROR:file_path_watcher_inotify.cc(890)] Failed to read /proc/sys/fs/inotify/max_user_watches
+[1527:1605:0622/180326.990000:ERROR:bus.cc(407)] Failed to connect to the bus: Failed to connect to socket /data/data/com.termux/files/usr/var/run/dbus/system_bus_socket: No such file or directory
+[1527:1622:0622/180328.079154:ERROR:bus.cc(407)] Failed to connect to the bus: Failed to connect to socket /data/data/com.termux/files/usr/var/run/dbus/system_bus_socket: No such file or directory
+[1527:1622:0622/180328.079622:ERROR:bus.cc(407)] Failed to connect to the bus: Failed to connect to socket /data/data/com.termux/files/usr/var/run/dbus/system_bus_socket: No such file or directory
+glx: failed to create drisw screen
+[1631:1631:0622/180329.211615:ERROR:viz_main_impl.cc(166)] Exiting GPU process due to errors during initialization
+[1527:1720:0622/180331.118570:ERROR:bus.cc(407)] Failed to connect to the bus: Failed to connect to socket /data/data/com.termux/files/usr/var/run/dbus/system_bus_socket: No such file or directory
+[1527:1720:0622/180331.119061:ERROR:bus.cc(407)] Failed to connect to the bus: Failed to connect to socket /data/data/com.termux/files/usr/var/run/dbus/system_bus_socket: No such file or directory
+[1527:1720:0622/180331.119572:ERROR:bus.cc(407)] Failed to connect to the bus: Failed to connect to socket /data/data/com.termux/files/usr/var/run/dbus/system_bus_socket: No such file or directory
+[1527:1720:0622/180331.120079:ERROR:bus.cc(407)] Failed to connect to the bus: Failed to connect to socket /data/data/com.termux/files/usr/var/run/dbus/system_bus_socket: No such file or directory
+[1527:1720:0622/180331.120515:ERROR:bus.cc(407)] Failed to connect to the bus: Failed to connect to socket /data/data/com.termux/files/usr/var/run/dbus/system_bus_socket: No such file or directory
+glx: failed to create drisw screen
+[1718:1718:0622/180332.161135:ERROR:viz_main_impl.cc(166)] Exiting GPU process due to errors during initialization
+glx: failed to create drisw screen
+[1733:1733:0622/180333.228954:ERROR:viz_main_impl.cc(166)] Exiting GPU process due to errors during initialization
+Warning: vkCreateInstance: Found no drivers!
+Warning: vkCreateInstance failed with VK_ERROR_INCOMPATIBLE_DRIVER
+    at CheckVkSuccessImpl (../../../src/third_party/dawn/src/dawn/native/vulkan/VulkanError.cpp:101)
+
+Warning: vkCreateInstance: Found no drivers!
+Warning: vkCreateInstance failed with VK_ERROR_INCOMPATIBLE_DRIVER
+    at CheckVkSuccessImpl (../../../src/third_party/dawn/src/dawn/native/vulkan/VulkanError.cpp:101)
+
