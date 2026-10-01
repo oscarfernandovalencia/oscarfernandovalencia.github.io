@@ -94,13 +94,14 @@
             item.classList.remove('section-show')
           })
           section.classList.add('section-show')
-
+          window.dispatchEvent(new Event('resize'))
         }, 350);
       } else {
         sections.forEach((item) => {
           item.classList.remove('section-show')
         })
         section.classList.add('section-show')
+        window.dispatchEvent(new Event('resize'))
       }
 
       scrollto(this.hash)
