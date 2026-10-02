@@ -1,6 +1,7 @@
 /**
  * Oscar Fernando Valencia — Ingeniero Civil
  * Pure Vanilla JavaScript (Zero Frameworks, High Performance)
+ * Micro-interactions, Toast, Smooth Filters, Modal & Counters
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -11,15 +12,32 @@ document.addEventListener('DOMContentLoaded', () => {
   const navToggle = document.querySelector('.nav-toggle');
   const navMenu = document.querySelector('.nav-menu');
   const navLinks = document.querySelectorAll('.nav-link');
+  const backToTop = document.getElementById('backToTop');
 
-  // Sticky navbar shadow on scroll
+  // Scroll events (Sticky Nav & Back To Top)
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 40) {
+    const scrollPos = window.scrollY;
+
+    if (scrollPos > 40) {
       siteNav.classList.add('scrolled');
     } else {
       siteNav.classList.remove('scrolled');
     }
+
+    if (backToTop) {
+      if (scrollPos > 450) {
+        backToTop.classList.add('show');
+      } else {
+        backToTop.classList.remove('show');
+      }
+    }
   });
+
+  if (backToTop) {
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
 
   // Mobile menu toggle
   if (navToggle && navMenu) {
@@ -49,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const sections = document.querySelectorAll('section[id], header[id]');
   const observerOptions = {
     root: null,
-    rootMargin: '-30% 0px -60% 0px',
+    rootMargin: '-25% 0px -65% 0px',
     threshold: 0
   };
 
@@ -77,7 +95,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if (filterBtns.length > 0 && projectCards.length > 0) {
     filterBtns.forEach(btn => {
       btn.addEventListener('click', () => {
-        // Active button style
         filterBtns.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
 
@@ -90,10 +107,10 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
               card.style.opacity = '1';
               card.style.transform = 'scale(1)';
-            }, 50);
+            }, 40);
           } else {
             card.style.opacity = '0';
-            card.style.transform = 'scale(0.95)';
+            card.style.transform = 'scale(0.96)';
             setTimeout(() => {
               card.style.display = 'none';
             }, 250);
@@ -153,7 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
     metricNumbers.forEach(counter => {
       const target = parseInt(counter.getAttribute('data-target'), 10);
       const suffix = counter.getAttribute('data-suffix') || '';
-      const duration = 1500;
+      const duration = 1400;
       const stepTime = 25;
       const steps = duration / stepTime;
       const increment = target / steps;
@@ -180,8 +197,53 @@ document.addEventListener('DOMContentLoaded', () => {
           animateCounters();
         }
       });
-    }, { threshold: 0.2 });
+    }, { threshold: 0.25 });
 
     counterObserver.observe(metricsSection);
   }
+
+  // --- 6. Quick Copy to Clipboard & Toast ---
+  const toast = document.getElementById('neonToast');
+  const toastText = document.getElementById('toastText');
+  const copyButtons = document.querySelectorAll('.copy-btn');
+  let toastTimeout;
+
+  const showToast = (message) => {
+    if (!toast || !toastText) return;
+    toastText.textContent = message;
+    toast.classList.add('show');
+
+    clearTimeout(toastTimeout);
+    toastTimeout = setTimeout(() => {
+      toast.classList.remove('show');
+    }, 2600);
+  };
+
+  copyButtons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const textToCopy = btn.getAttribute('data-copy');
+      const label = btn.getAttribute('data-label') || 'Copiado';
+
+      if (navigator.clipboard && textToCopy) {
+        navigator.clipboard.writeText(textToCopy).then(() => {
+          showToast(`✓ ${label} copiado al portapapeles`);
+        }).catch(() => {
+          fallbackCopy(textToCopy, label);
+        });
+      } else if (textToCopy) {
+        fallbackCopy(textToCopy, label);
+      }
+    });
+  });
+
+  const fallbackCopy = (text, label) => {
+    const tempInput = document.createElement('input');
+    tempInput.value = text;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand('copy');
+    document.body.removeChild(tempInput);
+    showToast(`✓ ${label} copiado al portapapeles`);
+  };
 });
