@@ -1,0 +1,804 @@
+/* ==========================================================================
+   OSCAR FERNANDO VALENCIA — INGENIERO CIVIL
+   Engineering Web Applications Stylesheet (apps.css)
+   Clean, Modern, Dark Neon Cyber-Engineering Design System
+   ========================================================================== */
+
+/* --- App Container & Layout --- */
+.app-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.app-main {
+  flex: 1;
+  padding: 40px 0 80px;
+}
+
+/* --- App Hero Header --- */
+.app-header-banner {
+  background: linear-gradient(180deg, rgba(12, 16, 23, 0.95) 0%, rgba(7, 9, 14, 0.95) 100%);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 30px 0 25px;
+  position: relative;
+}
+
+.app-header-banner::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+}
+
+.app-breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+}
+
+.app-breadcrumbs a {
+  color: var(--neon-cyan);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.app-breadcrumbs a:hover {
+  color: var(--neon-green);
+}
+
+.app-title-group {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.app-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+
+.app-title .accent-cyan {
+  color: var(--neon-cyan);
+  text-shadow: var(--glow-cyan-sm);
+}
+
+.app-title .accent-green {
+  color: var(--neon-green);
+  text-shadow: var(--glow-green-sm);
+}
+
+.app-subtitle {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  max-width: 780px;
+  line-height: 1.5;
+}
+
+.app-header-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* --- Navigation Tabs for Apps --- */
+.app-tabs-bar {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 16px 0 6px;
+  border-bottom: 1px solid var(--border-subtle);
+  margin-bottom: 30px;
+  scrollbar-width: thin;
+}
+
+.app-tab-btn {
+  background: transparent;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 10px 18px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+
+.app-tab-btn:hover {
+  color: var(--neon-cyan);
+  border-color: rgba(0, 240, 255, 0.3);
+  background: rgba(0, 240, 255, 0.04);
+}
+
+.app-tab-btn.active {
+  color: #07090e;
+  background: var(--neon-cyan);
+  border-color: var(--neon-cyan);
+  font-weight: 700;
+  box-shadow: var(--glow-cyan-sm);
+}
+
+.app-tab-btn.active.green {
+  background: var(--neon-green);
+  border-color: var(--neon-green);
+  box-shadow: var(--glow-green-sm);
+}
+
+.app-tab-content {
+  display: none;
+}
+
+.app-tab-content.active {
+  display: block;
+  animation: fadeInApp 0.3s ease;
+}
+
+@keyframes fadeInApp {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Layout Grid: Inputs & Results --- */
+.calc-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+@media (max-width: 960px) {
+  .calc-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --- Card Styles --- */
+.calc-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  position: relative;
+  box-shadow: 0 10px 25px -10px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+}
+
+.calc-card.sticky {
+  position: sticky;
+  top: 90px;
+}
+
+.calc-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 16px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.calc-card-title {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.calc-card-title i {
+  color: var(--neon-cyan);
+}
+
+/* --- Form Groups & Inputs --- */
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+
+.form-label .unit-badge {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--neon-cyan);
+  background: rgba(0, 240, 255, 0.08);
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 240, 255, 0.2);
+}
+
+.form-control {
+  width: 100%;
+  background: rgba(10, 15, 26, 0.9);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.98rem;
+  padding: 10px 14px;
+  transition: var(--transition);
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--neon-cyan);
+  box-shadow: 0 0 0 3px rgba(0, 240, 255, 0.15);
+  background: rgba(14, 20, 34, 0.95);
+}
+
+select.form-control {
+  cursor: pointer;
+}
+
+.form-control option {
+  background: #0d121c;
+  color: #fff;
+}
+
+.input-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 12px;
+}
+
+/* --- Preset Buttons Grid --- */
+.presets-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.preset-btn {
+  background: rgba(10, 15, 26, 0.8);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  cursor: pointer;
+  text-align: left;
+  transition: var(--transition);
+  color: var(--text-primary);
+}
+
+.preset-btn:hover {
+  border-color: rgba(0, 240, 255, 0.4);
+  background: rgba(0, 240, 255, 0.06);
+}
+
+.preset-btn.active {
+  border-color: var(--neon-cyan);
+  background: rgba(0, 240, 255, 0.12);
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+}
+
+.preset-btn .ratio-tag {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--neon-cyan);
+  display: block;
+}
+
+.preset-btn .fc-tag {
+  font-size: 0.78rem;
+  color: var(--neon-green);
+  display: block;
+  margin-top: 2px;
+}
+
+.preset-btn .usage-tag {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  display: block;
+  margin-top: 2px;
+  line-height: 1.2;
+}
+
+/* --- Element Type Selector Tabs --- */
+.element-types-nav {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.element-type-btn {
+  background: rgba(15, 23, 38, 0.8);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+  padding: 6px 12px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: var(--transition);
+}
+
+.element-type-btn.active {
+  border-color: var(--neon-cyan);
+  color: var(--neon-cyan);
+  background: rgba(0, 240, 255, 0.1);
+  font-weight: 600;
+}
+
+/* --- Results Panel & Metric Cards --- */
+.results-hero-box {
+  background: linear-gradient(135deg, rgba(0, 240, 255, 0.08) 0%, rgba(0, 255, 136, 0.04) 100%);
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  border-radius: var(--radius-md);
+  padding: 18px 20px;
+  margin-bottom: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.results-hero-vol {
+  font-family: var(--font-mono);
+}
+
+.results-hero-vol .label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.results-hero-vol .val {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--neon-cyan);
+  line-height: 1.1;
+}
+
+.results-hero-vol .unit {
+  font-size: 1rem;
+  color: var(--text-secondary);
+}
+
+.results-hero-meta {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.results-meta-item {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.results-meta-item strong {
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+}
+
+/* --- Primary Material Cards Grid --- */
+.material-metrics-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.material-card {
+  background: rgba(12, 17, 27, 0.9);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.material-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--neon-cyan);
+}
+
+.material-card.cemento::before { background: #00f0ff; }
+.material-card.arena::before { background: #ffb703; }
+.material-card.triturado::before { background: #00ff88; }
+.material-card.agua::before { background: #3b82f6; }
+
+.material-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.material-name {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.material-badge {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-secondary);
+}
+
+.material-values {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 10px;
+  background: rgba(7, 9, 14, 0.6);
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+}
+
+.val-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.val-item .lbl {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-bottom: 2px;
+}
+
+.val-item .val {
+  font-family: var(--font-mono);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.val-item .val.highlight {
+  color: var(--neon-cyan);
+}
+.val-item .val.amber {
+  color: var(--neon-amber);
+}
+.val-item .val.green {
+  color: var(--neon-green);
+}
+
+.val-item .sub {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+/* --- Concrete Volumetric Proportion Bar --- */
+.prop-bar-wrap {
+  margin: 16px 0 24px;
+  background: rgba(7, 9, 14, 0.7);
+  padding: 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+}
+
+.prop-bar-label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.prop-bar {
+  height: 18px;
+  border-radius: 9px;
+  overflow: hidden;
+  display: flex;
+  background: #111827;
+}
+
+.prop-seg {
+  height: 100%;
+  transition: width 0.3s ease;
+  position: relative;
+}
+
+.prop-seg.cemento { background: #00f0ff; }
+.prop-seg.arena { background: #ffb703; }
+.prop-seg.triturado { background: #00ff88; }
+
+.prop-legend {
+  display: flex;
+  gap: 16px;
+  font-size: 0.75rem;
+  margin-top: 8px;
+  font-family: var(--font-mono);
+  flex-wrap: wrap;
+}
+
+.prop-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.prop-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+/* --- Action Buttons Strip --- */
+.action-buttons-strip {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.action-btn {
+  flex: 1;
+  min-width: 140px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  border: 1px solid var(--border-subtle);
+  background: rgba(14, 20, 31, 0.9);
+  color: var(--text-primary);
+}
+
+.action-btn:hover {
+  background: rgba(0, 240, 255, 0.1);
+  border-color: var(--neon-cyan);
+  color: var(--neon-cyan);
+}
+
+.action-btn.primary {
+  background: var(--neon-cyan);
+  color: #07090e;
+  border-color: var(--neon-cyan);
+}
+
+.action-btn.primary:hover {
+  background: #22f3ff;
+  box-shadow: var(--glow-cyan-sm);
+  color: #07090e;
+}
+
+/* --- DCR Gauge / Meter for Steel App --- */
+.dcr-meter-box {
+  background: rgba(7, 9, 14, 0.8);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 22px;
+}
+
+.dcr-meter-title {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
+}
+
+.dcr-gauge-num {
+  font-family: var(--font-mono);
+  font-size: 3.2rem;
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 6px;
+  transition: color 0.3s ease;
+}
+
+.dcr-gauge-status {
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: 50px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 12px;
+}
+
+.dcr-bar-track {
+  width: 100%;
+  height: 12px;
+  background: #111827;
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+}
+
+.dcr-bar-fill {
+  height: 100%;
+  transition: width 0.4s ease, background-color 0.4s ease;
+}
+
+.dcr-scale-markers {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  margin-top: 6px;
+}
+
+/* Status Colors */
+.status-safe { color: #00E676; }
+.status-optimal { color: #76FF03; }
+.status-warning { color: #FFD600; }
+.status-danger { color: #FF1744; }
+
+.bg-safe { background-color: #00E676; }
+.bg-optimal { background-color: #76FF03; }
+.bg-warning { background-color: #FFD600; }
+.bg-danger { background-color: #FF1744; }
+
+.badge-safe { background: rgba(0, 230, 118, 0.15); color: #00E676; border: 1px solid rgba(0, 230, 118, 0.4); }
+.badge-optimal { background: rgba(118, 255, 3, 0.15); color: #76FF03; border: 1px solid rgba(118, 255, 3, 0.4); }
+.badge-warning { background: rgba(255, 214, 0, 0.15); color: #FFD600; border: 1px solid rgba(255, 214, 0, 0.4); }
+.badge-danger { background: rgba(255, 23, 68, 0.15); color: #FF1744; border: 1px solid rgba(255, 23, 68, 0.4); }
+
+/* --- Table Styles (Steel Catalog & Rebar Table) --- */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+  background: rgba(10, 15, 26, 0.6);
+}
+
+.calc-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  text-align: left;
+}
+
+.calc-table th {
+  background: rgba(15, 23, 42, 0.95);
+  color: var(--neon-cyan);
+  padding: 12px 14px;
+  font-weight: 600;
+  border-bottom: 1px solid var(--border-subtle);
+  white-space: nowrap;
+}
+
+.calc-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.calc-table tbody tr:hover {
+  background: rgba(0, 240, 255, 0.05);
+}
+
+.calc-table td.highlight {
+  color: var(--neon-green);
+  font-weight: 600;
+}
+
+/* --- Section Canvas Container --- */
+.section-canvas-wrap {
+  width: 100%;
+  height: 240px;
+  background: rgba(7, 9, 14, 0.9);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.section-canvas-wrap canvas {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/* --- AISC Limit States List --- */
+.limit-states-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.limit-state-item {
+  background: rgba(10, 15, 26, 0.7);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.limit-state-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.limit-state-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.limit-state-ref {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.limit-state-dcr {
+  font-family: var(--font-mono);
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+/* --- Print & Clean Export Styling --- */
+@media print {
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+  .site-nav, .app-header-banner, .action-buttons-strip, .app-tabs-bar {
+    display: none !important;
+  }
+  .calc-card {
+    border: 1px solid #ccc !important;
+    box-shadow: none !important;
+    background: #fff !important;
+    color: #000 !important;
+  }
+}

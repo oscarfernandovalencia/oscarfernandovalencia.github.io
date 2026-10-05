@@ -118,6 +118,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       });
     });
+
+    // Check if URL hash is #apps or similar filter
+    if (window.location.hash === '#apps') {
+      const appBtn = document.querySelector('.filter-btn[data-filter="apps"]');
+      if (appBtn) {
+        setTimeout(() => appBtn.click(), 100);
+      }
+    }
   }
 
   // --- 4. Pure Vanilla Lightbox Modal ---

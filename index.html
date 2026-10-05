@@ -19,6 +19,7 @@
 
   <!-- Custom Pure CSS Design System -->
   <link href="assets/css/style.css" rel="stylesheet">
+  <link href="assets/css/apps.css" rel="stylesheet">
 </head>
 
 <body>
@@ -491,12 +492,38 @@
             <span class="badge-dot"></span> Portafolio Unificado
           </div>
           <h2>Obras &amp; <span>Proyectos Ejecutados</span></h2>
-          <p>Catálogo de proyectos en infraestructura vial, edificación residencial, fotogrametría y planos de ingeniería.</p>
+          <p>Catálogo de proyectos ejecutados en infraestructura vial, edificación residencial, fotogrametría, planos y aplicaciones web de cálculo para ingeniería.</p>
+        </div>
+
+        <!-- Featured Apps Showcase Banner -->
+        <div class="apps-showcase-box" style="background: linear-gradient(135deg, rgba(14, 20, 31, 0.95) 0%, rgba(10, 15, 26, 0.95) 100%); border: 1px solid var(--border-neon); border-radius: var(--radius-md); padding: 24px 28px; margin-bottom: 26px; box-shadow: var(--glow-card); position: relative; overflow: hidden;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+            <div>
+              <div class="neon-badge green" style="margin-bottom: 8px;">
+                <span class="badge-dot"></span> Innovación &amp; Software de Ingeniería
+              </div>
+              <h3 style="font-family: var(--font-heading); font-size: 1.4rem; color: #fff; margin-bottom: 6px;">
+                Aplicaciones Web &amp; Herramientas Técnicas de Cálculo
+              </h3>
+              <p style="color: var(--text-secondary); font-size: 0.92rem; max-width: 780px;">
+                Herramientas computacionales interactivas desarrolladas para optimizar la toma de decisiones técnicas en obra y consultoría: cálculo volumétrico de mezclas de concreto y diseño de perfiles tubulares HSS bajo norma AISC 360-16.
+              </p>
+            </div>
+            <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+              <a href="calculadora-concreto.html" class="btn-neon btn-neon-primary">
+                <i class="bi bi-calculator"></i> Calculadora de Concreto
+              </a>
+              <a href="diseno-acero.html" class="btn-neon btn-neon-outline">
+                <i class="bi bi-buildings"></i> Diseñador de Acero HSS
+              </a>
+            </div>
+          </div>
         </div>
 
         <!-- Filter Buttons (Vanilla JS) -->
         <div class="portfolio-filter-tabs">
           <button class="filter-btn active" data-filter="*">Todos</button>
+          <button class="filter-btn" data-filter="apps"><i class="bi bi-cpu"></i> Aplicaciones Web</button>
           <button class="filter-btn" data-filter="edif">Edificaciones</button>
           <button class="filter-btn" data-filter="vias">Vías e Interventoría</button>
           <button class="filter-btn" data-filter="topo">Topografía &amp; Drones</button>
@@ -505,6 +532,52 @@
 
         <!-- Projects Grid -->
         <div class="portfolio-grid">
+
+          <!-- APP 1: Calculadora de Concreto y Materiales -->
+          <article class="project-card" data-category="apps edif vias">
+            <div class="project-thumb">
+              <img src="assets/img/proyectos/IMG_20251106_122412.jpg" alt="Calculadora Técnica de Concreto y Materiales">
+              <span class="project-category-tag" style="background: rgba(0, 255, 136, 0.2); color: var(--neon-green); border-color: rgba(0, 255, 136, 0.4);">
+                <i class="bi bi-cpu"></i> Aplicación Web
+              </span>
+            </div>
+            <div class="project-content">
+              <h3 class="project-title">Calculadora de Concreto &amp; Materiales</h3>
+              <div class="project-subtitle">Versión Web Interactiva — Dosificación Cemento, Arena y Triturado</div>
+              <p class="project-desc">Herramienta técnica especializada en el cálculo exacto de cantidades de arena, cemento (kg y bultos), triturado (m³ y viajes), mezclas de mortero, diseño de vías por método tarreo y cuantías de acero para placa huella y pavimento rígido.</p>
+              <div class="project-actions">
+                <a href="calculadora-concreto.html" class="project-link-btn" style="background: var(--neon-cyan); color: #07090e; font-weight: 700;">
+                  Abrir Aplicación <i class="bi bi-arrow-up-right-circle"></i>
+                </a>
+                <button class="project-zoom-btn" data-img="assets/img/proyectos/IMG_20251106_122412.jpg" data-caption="Cálculo técnico y control de vaciado de concreto en obra">
+                  <i class="bi bi-zoom-in"></i>
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <!-- APP 2: Diseñador Estructural de Acero HSS -->
+          <article class="project-card" data-category="apps edif">
+            <div class="project-thumb">
+              <img src="assets/img/proyectos/IMG_20250903_162128.jpg" alt="Diseñador Estructural de Acero HSS AISC 360-16">
+              <span class="project-category-tag" style="background: rgba(0, 240, 255, 0.2); color: var(--neon-cyan); border-color: rgba(0, 240, 255, 0.4);">
+                <i class="bi bi-cpu"></i> Aplicación Web
+              </span>
+            </div>
+            <div class="project-content">
+              <h3 class="project-title">Diseñador de Estructuras de Acero HSS</h3>
+              <div class="project-subtitle">Software de Verificación LRFD &bull; AISC 360-16 &bull; McCormac</div>
+              <p class="project-desc">Suite web para el análisis estructural de miembros tubulares (SHS y RHS): verificación a tracción, compresión, pandeo flexo-torsional, flexo-compresión combinada, optimizador automático por peso mínimo y catálogo de 56 secciones con visualizador 2D/3D.</p>
+              <div class="project-actions">
+                <a href="diseno-acero.html" class="project-link-btn" style="background: var(--neon-cyan); color: #07090e; font-weight: 700;">
+                  Abrir Aplicación <i class="bi bi-arrow-up-right-circle"></i>
+                </a>
+                <button class="project-zoom-btn" data-img="assets/img/proyectos/IMG_20250903_162128.jpg" data-caption="Diseño y montaje de estructura metálica en perfiles tubulares HSS">
+                  <i class="bi bi-zoom-in"></i>
+                </button>
+              </div>
+            </div>
+          </article>
 
           <!-- 1. Mampostería Reforzada -->
           <article class="project-card" data-category="edif">

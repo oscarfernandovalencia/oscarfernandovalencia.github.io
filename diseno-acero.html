@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Diseñador Estructural de Acero HSS (AISC 360 / McCormac) | Oscar Fernando Valencia</title>
+  <meta content="Aplicación web para diseño, verificación y optimización de perfiles tubulares estructurales HSS según AISC 360-16 y McCormac." name="description">
+  <meta content="diseno acero, perfiles HSS, AISC 360, McCormac, estructuras metalicas, verificacion vigas columnas, optimizacion perfiles" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Icons -->
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+
+  <!-- CSS Design System -->
+  <link href="assets/css/style.css" rel="stylesheet">
+  <link href="assets/css/apps.css" rel="stylesheet">
+</head>
+
+<body class="app-page">
+
+  <!-- ======= Floating Sticky Navbar ======= -->
+  <nav class="site-nav">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo">
+        OFV<span class="dot">.</span>
+      </a>
+
+      <button class="nav-toggle" aria-label="Abrir menú de navegación">
+        <i class="bi bi-list"></i>
+      </button>
+
+      <ul class="nav-menu">
+        <li><a class="nav-link" href="index.html#hero">Inicio</a></li>
+        <li><a class="nav-link" href="index.html#portfolio">Portafolio</a></li>
+        <li><a class="nav-link" href="calculadora-concreto.html">Calculadora de Concreto</a></li>
+        <li><a class="nav-link active" href="diseno-acero.html">Diseñador de Acero HSS</a></li>
+        <li><a class="nav-link" href="index.html#contact">Contacto</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ======= Header Banner ======= -->
+  <header class="app-header-banner">
+    <div class="container">
+      <div class="app-breadcrumbs">
+        <a href="index.html"><i class="bi bi-house"></i> Inicio</a>
+        <span>/</span>
+        <a href="index.html#portfolio">Proyectos Ejecutados</a>
+        <span>/</span>
+        <span style="color: var(--neon-cyan);">Diseñador Estructural de Acero HSS</span>
+      </div>
+
+      <div class="app-title-group">
+        <div>
+          <div class="neon-badge">
+            <span class="badge-dot"></span> AISC 360-16 &bull; LRFD &bull; McCormac
+          </div>
+          <h1 class="app-title">
+            Diseñador Estructural de <span class="accent-cyan">Acero HSS</span>
+          </h1>
+          <p class="app-subtitle">
+            Plataforma web de ingeniería para la verificación a tracción, compresión, flexión biaxial y flexo-compresión LRFD de perfiles tubulares cuadrados (SHS) y rectangulares (RHS), optimizador automático por peso mínimo y catálogo dinámico.
+          </p>
+        </div>
+
+        <div class="app-header-actions">
+          <a href="index.html#portfolio" class="btn-neon btn-neon-outline">
+            <i class="bi bi-arrow-left"></i> Volver al Portafolio
+          </a>
+          <a href="calculadora-concreto.html" class="btn-neon btn-neon-primary">
+            <i class="bi bi-calculator"></i> Calculadora de Concreto
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ======= Main Application Container ======= -->
+  <main class="app-main">
+    <div class="container">
+
+      <!-- Navigation Tabs for Modules -->
+      <div class="app-tabs-bar">
+        <button class="app-tab-btn active" data-tab="tab-verificador">
+          <i class="bi bi-shield-check"></i> 1. Verificador Detallado AISC 360
+        </button>
+        <button class="app-tab-btn" data-tab="tab-optimizador">
+          <i class="bi bi-magic"></i> 2. Optimizador por Peso Mínimo
+        </button>
+        <button class="app-tab-btn" data-tab="tab-catalogo">
+          <i class="bi bi-collection"></i> 3. Catálogo Dinámico HSS (56 Perfiles)
+        </button>
+        <button class="app-tab-btn" data-tab="tab-memoria">
+          <i class="bi bi-journal-text"></i> 4. Memoria Técnica &amp; Fórmulas
+        </button>
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- TAB 1: VERIFICADOR DETALLADO AISC 360-16                      -->
+      <!-- ============================================================== -->
+      <section id="tab-verificador" class="app-tab-content active">
+        <div class="calc-grid">
+
+          <!-- Left Column: Member & Load Inputs -->
+          <div class="calc-card">
+            <div class="calc-card-header">
+              <h2 class="calc-card-title">
+                <i class="bi bi-sliders"></i> Definición de Miembro &amp; Cargas LRFD
+              </h2>
+              <div class="element-types-nav" style="margin: 0;">
+                <button type="button" class="element-type-btn active" id="btnUnitSI" onclick="setSteelUnits('si')">SI (kN, m, MPa)</button>
+                <button type="button" class="element-type-btn" id="btnUnitImp" onclick="setSteelUnits('imperial')">Imperial (kips, ft, ksi)</button>
+              </div>
+            </div>
+
+            <!-- Profile Selector -->
+            <div class="form-group">
+              <label class="form-label" for="selectProfile">
+                <span>Perfil Tubular Estructural HSS</span>
+                <span class="unit-badge">Catálogo AISC</span>
+              </label>
+              <select id="selectProfile" class="form-control" onchange="actualizarVerificacion()">
+                <!-- Populated dynamically via JS from HSS_CATALOG -->
+              </select>
+            </div>
+
+            <!-- Steel Material Properties -->
+            <div class="input-row">
+              <div class="form-group">
+                <label class="form-label">Grado de Acero</label>
+                <select id="steelGrade" class="form-control" onchange="actualizarVerificacion()">
+                  <option value="A500-C" selected>ASTM A500 Grado C (Fy = 50 ksi / 345 MPa)</option>
+                  <option value="A500-B">ASTM A500 Grado B (Fy = 46 ksi / 317 MPa)</option>
+                  <option value="A1085">ASTM A1085 (Fy = 50 ksi / 345 MPa)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Módulo Elástico (E)</label>
+                <input type="text" id="dispE" class="form-control" value="200,000 MPa (29,000 ksi)" readonly>
+              </div>
+            </div>
+
+            <!-- Unbraced Lengths & Effective Length Factors -->
+            <div style="background: rgba(7, 9, 14, 0.5); padding: 14px; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); margin-bottom: 18px;">
+              <h4 style="font-size: 0.85rem; color: var(--neon-cyan); margin-bottom: 10px; font-family: var(--font-heading); text-transform: uppercase;">
+                <i class="bi bi-arrows-expand"></i> Longitudes de Pandeo &amp; Factores K
+              </h4>
+              <div class="input-row">
+                <div class="form-group">
+                  <label class="form-label" id="lblLx">Longitud Lx <span class="unit-badge" id="uLx">[m]</span></label>
+                  <input type="number" id="inLx" class="form-control" value="3.0" step="0.1" min="0.1" oninput="actualizarVerificacion()">
+                </div>
+                <div class="form-group">
+                  <label class="form-label" id="lblLy">Longitud Ly <span class="unit-badge" id="uLy">[m]</span></label>
+                  <input type="number" id="inLy" class="form-control" value="3.0" step="0.1" min="0.1" oninput="actualizarVerificacion()">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Factor Kx</label>
+                  <input type="number" id="inKx" class="form-control" value="1.0" step="0.05" min="0.5" max="3.0" oninput="actualizarVerificacion()">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Factor Ky</label>
+                  <input type="number" id="inKy" class="form-control" value="1.0" step="0.05" min="0.5" max="3.0" oninput="actualizarVerificacion()">
+                </div>
+              </div>
+            </div>
+
+            <!-- Solicitaciones de Diseño LRFD (Ultimate Loads) -->
+            <div style="background: rgba(7, 9, 14, 0.5); padding: 14px; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); margin-bottom: 18px;">
+              <h4 style="font-size: 0.85rem; color: var(--neon-amber); margin-bottom: 10px; font-family: var(--font-heading); text-transform: uppercase;">
+                <i class="bi bi-lightning-charge"></i> Solicitaciones Factorizadas Últimas (LRFD)
+              </h4>
+              <div class="input-row">
+                <div class="form-group">
+                  <label class="form-label">Carga Axial Pu <span class="unit-badge" id="uPu">[kN]</span></label>
+                  <input type="number" id="inPu" class="form-control" value="250.0" step="10.0" oninput="actualizarVerificacion()">
+                  <small style="color:var(--text-muted); font-size:0.7rem;">+ Tracción / - Compresión</small>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Momento Mux <span class="unit-badge" id="uMux">[kN·m]</span></label>
+                  <input type="number" id="inMux" class="form-control" value="35.0" step="5.0" min="0" oninput="actualizarVerificacion()">
+                  <small style="color:var(--text-muted); font-size:0.7rem;">Eje fuerte (X-X)</small>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Momento Muy <span class="unit-badge" id="uMuy">[kN·m]</span></label>
+                  <input type="number" id="inMuy" class="form-control" value="12.0" step="2.0" min="0" oninput="actualizarVerificacion()">
+                  <small style="color:var(--text-muted); font-size:0.7rem;">Eje débil (Y-Y)</small>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Cortante Vu <span class="unit-badge" id="uVu">[kN]</span></label>
+                  <input type="number" id="inVu" class="form-control" value="45.0" step="5.0" min="0" oninput="actualizarVerificacion()">
+                  <small style="color:var(--text-muted); font-size:0.7rem;">Cortante mayorado</small>
+                </div>
+              </div>
+            </div>
+
+            <!-- Cross-section Canvas Preview -->
+            <div class="section-canvas-wrap">
+              <canvas id="canvasSection" width="340" height="220"></canvas>
+            </div>
+            <div style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted); text-align: center;">
+              Sección transversal tubular HSS y cotas exteriores
+            </div>
+
+          </div>
+
+          <!-- Right Column: Verification Results & DCR Gauge -->
+          <div class="calc-card sticky">
+            <div class="calc-card-header">
+              <h2 class="calc-card-title">
+                <i class="bi bi-speedometer2"></i> Resultados de Verificación AISC 360-16
+              </h2>
+              <span id="badgeAdecuado" class="badge-safe" style="padding: 3px 10px; border-radius: 4px; font-size: 0.82rem; font-family: var(--font-mono); font-weight: 700;">
+                ADECUADO
+              </span>
+            </div>
+
+            <!-- DCR Master Gauge -->
+            <div class="dcr-meter-box">
+              <div class="dcr-meter-title">Ratio Demanda / Capacidad Gobernante (DCR Max)</div>
+              <div id="dcrValueNum" class="dcr-gauge-num status-safe">0.78</div>
+              <div>
+                <span id="dcrStatusBadge" class="dcr-gauge-status badge-optimal">0.70 &lt; DCR &le; 0.95 &bull; Óptimo Eficiente</span>
+              </div>
+              <div class="dcr-bar-track">
+                <div id="dcrBarFill" class="dcr-bar-fill bg-optimal" style="width: 78%;"></div>
+              </div>
+              <div class="dcr-scale-markers">
+                <span>0.0 (Holgado)</span>
+                <span>0.70</span>
+                <span>0.95 (Eficiente)</span>
+                <span>1.00 (Límite)</span>
+                <span>&gt;1.00 (Falla)</span>
+              </div>
+            </div>
+
+            <!-- Governing Mode Box -->
+            <div style="background: rgba(10, 15, 26, 0.7); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 12px 16px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Modo Crítico Gobernante</span>
+                <div id="dispGovMode" style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 700; color: var(--neon-cyan);">
+                  Flexo-compresión combinada (H1-1a)
+                </div>
+              </div>
+              <div style="text-align: right;">
+                <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Peso Propio</span>
+                <div id="dispWeight" style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 700; color: #fff;">
+                  20.16 kg/m (13.55 lb/ft)
+                </div>
+              </div>
+            </div>
+
+            <!-- Detailed Limit States List -->
+            <div class="limit-states-list">
+
+              <!-- 1. Carga Axial (Compresión / Tracción) -->
+              <div class="limit-state-item">
+                <div class="limit-state-info">
+                  <span class="limit-state-name" id="nameAxial">Compresión Axial (Pandeo por Flexión &amp; Local)</span>
+                  <span class="limit-state-ref" id="refAxial">AISC Cap. E &bull; KL/r = 50.0 &bull; Régimen Inelástico &bull; Q = 1.00</span>
+                </div>
+                <div style="text-align: right;">
+                  <div class="limit-state-dcr" id="dcrAxial">0.35</div>
+                  <span class="limit-state-ref" id="capAxial">&phi;Pn = 715.4 kN</span>
+                </div>
+              </div>
+
+              <!-- 2. Flexión Eje Fuerte -->
+              <div class="limit-state-item">
+                <div class="limit-state-info">
+                  <span class="limit-state-name">Flexión Eje Fuerte (X-X)</span>
+                  <span class="limit-state-ref" id="refFlexX">AISC Cap. F7 &bull; Patín Compacto &bull; &phi;Mnx</span>
+                </div>
+                <div style="text-align: right;">
+                  <div class="limit-state-dcr" id="dcrFlexX">0.42</div>
+                  <span class="limit-state-ref" id="capFlexX">&phi;Mnx = 83.2 kN·m</span>
+                </div>
+              </div>
+
+              <!-- 3. Flexión Eje Débil -->
+              <div class="limit-state-item">
+                <div class="limit-state-info">
+                  <span class="limit-state-name">Flexión Eje Débil (Y-Y)</span>
+                  <span class="limit-state-ref" id="refFlexY">AISC Cap. F7 &bull; Patín Compacto &bull; &phi;Mny</span>
+                </div>
+                <div style="text-align: right;">
+                  <div class="limit-state-dcr" id="dcrFlexY">0.14</div>
+                  <span class="limit-state-ref" id="capFlexY">&phi;Mny = 83.2 kN·m</span>
+                </div>
+              </div>
+
+              <!-- 4. Fuerza Cortante -->
+              <div class="limit-state-item">
+                <div class="limit-state-info">
+                  <span class="limit-state-name">Resistencia a Cortante</span>
+                  <span class="limit-state-ref">AISC Cap. G4 &bull; Fluencia del alma &phi;Vn</span>
+                </div>
+                <div style="text-align: right;">
+                  <div class="limit-state-dcr" id="dcrShear">0.15</div>
+                  <span class="limit-state-ref" id="capShear">&phi;Vn = 301.2 kN</span>
+                </div>
+              </div>
+
+              <!-- 5. Flexo-compresión Combinada -->
+              <div class="limit-state-item" style="border-color: rgba(0, 240, 255, 0.3); background: rgba(0, 240, 255, 0.04);">
+                <div class="limit-state-info">
+                  <span class="limit-state-name" style="color: var(--neon-cyan);">Interacción Combinada (H1)</span>
+                  <span class="limit-state-ref" id="refInter">AISC Cap. H1-1a &bull; Pu/&phi;Pn &ge; 0.20</span>
+                </div>
+                <div style="text-align: right;">
+                  <div class="limit-state-dcr status-safe" id="dcrCombined" style="font-size: 1.2rem;">0.78</div>
+                  <span class="limit-state-ref">Límite &le; 1.00</span>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons-strip">
+              <button type="button" class="action-btn primary" onclick="copiarReporteAcero()">
+                <i class="bi bi-clipboard-check"></i> Copiar Memoria
+              </button>
+              <button type="button" class="action-btn" onclick="descargarMemoriaTXT()">
+                <i class="bi bi-download"></i> Guardar TXT
+              </button>
+              <button type="button" class="action-btn" onclick="window.print()">
+                <i class="bi bi-printer"></i> Imprimir Reporte
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ============================================================== -->
+      <!-- TAB 2: OPTIMIZADOR AUTOMÁTICO POR PESO MÍNIMO                 -->
+      <!-- ============================================================== -->
+      <section id="tab-optimizador" class="app-tab-content">
+        <div class="calc-card" style="margin-bottom: 24px;">
+          <div class="calc-card-header">
+            <h2 class="calc-card-title">
+              <i class="bi bi-magic"></i> Algoritmo Optimizador de Secciones Tubulares HSS
+            </h2>
+            <span class="badge-optimal" style="padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-family: var(--font-mono);">
+              Criterio: Menor Peso &bull; DCR &le; 1.00
+            </span>
+          </div>
+
+          <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 16px;">
+            El optimizador evalúa automáticamente las <strong>56 secciones del catálogo HSS</strong> bajo las cargas y longitudes definidas actualmente, descartando las secciones que fallan y ordenando las opciones adecuadas de menor a mayor peso propio. La sección más ligera representa el <strong>ahorro económico máximo</strong> en fabricación y montaje.
+          </p>
+
+          <div class="input-row" style="margin-bottom: 16px;">
+            <div class="form-group">
+              <label class="form-label">Filtrar Forma Geométrica:</label>
+              <select id="optFilterShape" class="form-control" onchange="ejecutarOptimizacion()">
+                <option value="all">Todas las secciones (SHS Cuadradas + RHS Rectangulares)</option>
+                <option value="SHS">Solo Cuadradas (SHS) - Columnas típicas</option>
+                <option value="RHS">Solo Rectangulares (RHS) - Vigas típicas</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">DCR Máximo Admisible:</label>
+              <select id="optTargetDCR" class="form-control" onchange="ejecutarOptimizacion()">
+                <option value="1.00">1.00 (Límite estricto AISC)</option>
+                <option value="0.95" selected>0.95 (Recomendado con margen del 5%)</option>
+                <option value="0.90">0.90 (Conservador 10% margen)</option>
+                <option value="0.85">0.85 (Alta seguridad)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Best Candidate Box -->
+          <div id="optBestCard" class="results-hero-box" style="display:none; margin-bottom: 20px;">
+            <div>
+              <div class="label">Perfil Más Liviano &amp; Óptimo Encontrado</div>
+              <div style="display: flex; align-items: baseline; gap: 12px;">
+                <span id="optBestName" class="val" style="color: var(--neon-green);">HSS6x6x3/16</span>
+                <span id="optBestDCR" class="badge-optimal" style="font-family: var(--font-mono); padding: 2px 8px; border-radius: 4px;">DCR = 0.78</span>
+              </div>
+            </div>
+            <div class="results-hero-meta">
+              <div class="results-meta-item">
+                Peso: <strong id="optBestWeight">20.16 kg/m</strong>
+              </div>
+              <div class="results-meta-item">
+                Modo: <strong id="optBestMode">Flexo-compresión</strong>
+              </div>
+              <button type="button" class="btn-neon btn-neon-primary" id="btnSelectBest" style="padding: 6px 14px; font-size: 0.8rem;">
+                <i class="bi bi-check-circle"></i> Cargar en Verificador
+              </button>
+            </div>
+          </div>
+
+          <!-- Optimizer Results Table -->
+          <div class="table-responsive">
+            <table class="calc-table">
+              <thead>
+                <tr>
+                  <th>Ranking</th>
+                  <th>Perfil HSS</th>
+                  <th>Tipo</th>
+                  <th>Peso [kg/m]</th>
+                  <th>Peso [lb/ft]</th>
+                  <th>DCR Máx</th>
+                  <th>Estado</th>
+                  <th>Modo Gobernante</th>
+                  <th>Acción</th>
+                </tr>
+              </thead>
+              <tbody id="optTableBody">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================== -->
+      <!-- TAB 3: CATÁLOGO DINÁMICO DE PERFILES HSS                       -->
+      <!-- ============================================================== -->
+      <section id="tab-catalogo" class="app-tab-content">
+        <div class="calc-card">
+          <div class="calc-card-header">
+            <h2 class="calc-card-title">
+              <i class="bi bi-collection"></i> Catálogo Completo de Perfiles Tubulares HSS (AISC 360-16 / ASTM A500)
+            </h2>
+            <span class="badge-safe" id="catalogCountBadge" style="padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-family: var(--font-mono);">
+              56 Perfiles Disponibles
+            </span>
+          </div>
+
+          <!-- Catalog Filter Bar -->
+          <div class="input-row" style="margin-bottom: 20px;">
+            <div class="form-group" style="flex: 2;">
+              <label class="form-label">Buscar Perfil por Nombre (ej. HSS6x6, HSS10x6, 1/4):</label>
+              <input type="text" id="catalogSearch" class="form-control" placeholder="Escribe para buscar perfil..." oninput="filtrarCatalogo()">
+            </div>
+            <div class="form-group" style="flex: 1;">
+              <label class="form-label">Filtrar Geometría:</label>
+              <select id="catalogFilterType" class="form-control" onchange="filtrarCatalogo()">
+                <option value="all">Todos los tipos (SHS + RHS)</option>
+                <option value="SHS">Solo Cuadrados (SHS)</option>
+                <option value="RHS">Solo Rectangulares (RHS)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="table-responsive" style="max-height: 520px; overflow-y: auto;">
+            <table class="calc-table">
+              <thead>
+                <tr>
+                  <th>Perfil</th>
+                  <th>Tipo</th>
+                  <th>H &times; B [in]</th>
+                  <th>Espesor t [in]</th>
+                  <th>Peso [kg/m]</th>
+                  <th>Área [cm²]</th>
+                  <th>Ix [cm⁴]</th>
+                  <th>Sx [cm³]</th>
+                  <th>Zx [cm³]</th>
+                  <th>rx [cm]</th>
+                  <th>b/t (Patín)</th>
+                  <th>h/t (Alma)</th>
+                  <th>Acción</th>
+                </tr>
+              </thead>
+              <tbody id="catalogTableBody">
+                <!-- Populated dynamically via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================== -->
+      <!-- TAB 4: MEMORIA TÉCNICA & FÓRMULAS AISC 360                     -->
+      <!-- ============================================================== -->
+      <section id="tab-memoria" class="app-tab-content">
+        <div class="calc-card" style="margin-bottom: 24px;">
+          <div class="calc-card-header">
+            <h2 class="calc-card-title">
+              <i class="bi bi-book"></i> Fundamentos Normativos AISC 360-16 / McCORMAC
+            </h2>
+          </div>
+
+          <div style="color: var(--text-secondary); font-size: 0.92rem; line-height: 1.7;">
+            <h3 style="color: var(--neon-cyan); font-family: var(--font-heading); margin-top: 10px;">1. Factores de Resistencia LRFD (Capítulo B)</h3>
+            <p>
+              De acuerdo con la especificación AISC 360-16 (y el Capítulo 2 de McCormac), los factores de reducción de resistencia aplicables son:
+            </p>
+            <ul style="padding-left: 20px; font-family: var(--font-mono); font-size: 0.85rem; margin: 8px 0 16px;">
+              <li>&phi;t = 0.90 para fluencia en tracción bruta y &phi;t = 0.75 para ruptura neta (Cap. D).</li>
+              <li>&phi;c = 0.90 para compresión axial (Cap. E).</li>
+              <li>&phi;b = 0.90 para flexión simple y biaxial (Cap. F).</li>
+              <li>&phi;v = 0.90 para cortante (Cap. G).</li>
+            </ul>
+
+            <h3 style="color: var(--neon-cyan); font-family: var(--font-heading); margin-top: 20px;">2. Compresión Axial y Pandeo Local (Capítulo E)</h3>
+            <p>
+              La capacidad de diseño &phi;c Pn se determina a partir del esfuerzo crítico Fcr:
+            </p>
+            <div style="background: rgba(7, 9, 14, 0.7); padding: 12px; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); margin: 10px 0; font-family: var(--font-mono);">
+              Si KL/r &le; 4.71 &radic;(E / (Q &times; Fy)):<br>
+              <strong>Fcr = Q &times; [0.658 ^ (Q &times; Fy / Fe)] &times; Fy</strong> &nbsp;(Pandeo Inelástico)<br><br>
+              Si KL/r &gt; 4.71 &radic;(E / (Q &times; Fy)):<br>
+              <strong>Fcr = 0.877 &times; Fe</strong> &nbsp;(Pandeo Elástico de Euler, Fe = &pi;² E / (KL/r)²)
+            </div>
+
+            <h3 style="color: var(--neon-cyan); font-family: var(--font-heading); margin-top: 20px;">3. Flexo-compresión Combinada (Capítulo H1)</h3>
+            <p>
+              Para miembros sometidos simultáneamente a carga axial y momentos flectores en ambos ejes principales:
+            </p>
+            <div style="background: rgba(7, 9, 14, 0.7); padding: 12px; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); margin: 10px 0; font-family: var(--font-mono);">
+              Para Pu / (&phi;c Pn) &ge; 0.20 (Eq. H1-1a):<br>
+              <strong>(Pu / &phi;c Pn) + (8/9) &times; [ (Mux / &phi;b Mnx) + (Muy / &phi;b Mny) ] &le; 1.00</strong><br><br>
+              Para Pu / (&phi;c Pn) &lt; 0.20 (Eq. H1-1b):<br>
+              <strong>(Pu / 2 &phi;c Pn) + [ (Mux / &phi;b Mnx) + (Muy / &phi;b Mny) ] &le; 1.00</strong>
+            </div>
+
+            <h3 style="color: var(--neon-cyan); font-family: var(--font-heading); margin-top: 20px;">4. Espesor de Diseño para Perfiles A500</h3>
+            <p>
+              Según AISC 360-16 Sección B4.2, el espesor de pared de diseño para perfiles tubulares ASTM A500 producidos mediante soldadura por resistencia eléctrica (ERW) debe tomarse como <strong>tdes = 0.93 &times; tnom</strong>, lo cual previene subestimar los esfuerzos por tolerancias de laminación.
+            </p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ======= Toast Notification ======= -->
+  <div id="neonToast" class="neon-toast" role="status" aria-live="polite">
+    <span id="toastText">Copiado al portapapeles</span>
+  </div>
+
+  <!-- ======= Footer ======= -->
+  <footer class="site-footer">
+    <div class="container">
+      <p>Oscar Fernando Valencia Escobar &bull; <span>Ingeniero Civil</span> &bull; Diseñador Estructural de Acero AISC 360-16</p>
+    </div>
+  </footer>
+
+  <!-- Application Logic Scripts -->
+  <script src="assets/js/hss_catalog_data.js"></script>
+  <script src="assets/js/diseno_acero.js"></script>
+</body>
+
+</html>
